@@ -5,8 +5,18 @@ module Trejo
 
       selected = if options[:selected]
         current_path =~ options[:selected]
+      elsif options[:root_path]
+        if options[:ignore_params]
+          current_path =~ /^#{Regexp.escape(url)}\/.*\?/
+        else
+          current_path =~ /^#{Regexp.escape(url)}\/.*/
+        end
       else
-        current_path == url
+        if options[:ignore_params]
+          current_path =~ /^#{Regexp.escape(url)}\?.*/
+        else
+          current_path == url
+        end
       end
 
       link_class = 'active' if selected
