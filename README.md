@@ -51,3 +51,10 @@ generates
    <a>Blog</a>
  </nav>
  ```
+
+The default css class applied to the link is `active`. This can be overridden by passing a `class` option with the desired class.
+
+
+ ```
+ <%= nav_item 'Home', '/home', class: 'current-section' %>
+ ```

@@ -117,5 +117,18 @@ describe Trejo::ViewHelpers do
         end
       end
     end
+
+    context 'when a css class is supplied' do
+      before do
+        request = stub fullpath: '/home'
+        @trejo.stub(:request).and_return(request)
+
+        @nav_item = @trejo.nav_item('Home', '/home', class: 'current-section')
+      end
+
+      it 'returns a selected nav item with that class' do
+        expect(@nav_item).to eq('<a href="/home" class="current-section">Home</a>')
+      end
+    end
   end
 end

@@ -9,7 +9,7 @@ module Trejo
         current_path =~ /^#{Regexp.escape(url)}.*(?:\?.*)?/
       end
 
-      link_class = 'active' if selected
+      link_class = options[:class] || 'active' if selected
       link_to name, url, class: link_class
     end
   end
