@@ -1,10 +1,10 @@
 # Trejo
 
-Navigation links with active states based on current path
+Trejo provides `nav_item` helper to render navigation links. An `active` class is applied to the link when the requested path matches the link url.
 
 ## Installation
 
-Add to your Gemfile and run the `bundle` command to install it.
+Add it to your Gemfile and run the `bundle` command to install it.
 
  ```ruby
  gem 'trejo'
@@ -12,14 +12,34 @@ Add to your Gemfile and run the `bundle` command to install it.
 
 ## Usage
 
-Use the nav_item helper method in your view to generate a navigation link.
-
 If the current path is `/home`, then the following usage
 
  ```
  <nav>
-   <%= nav_item 'Home', home_path %>
-   <%= nav_item 'Blog', blog_path %>
+   <%= nav_item 'Home', '/home' %>
+   <%= nav_item 'Blog', '/blog' %>
+ </nav>
+ ```
+
+generates
+
+ ```
+ <nav>
+   <a class='active'>Home</a>
+   <a>Blog</a>
+ </nav>
+ ```
+
+Trejo assumes that the link url is the root of the resource, so the above example also works if the requested path is `/home/index`.
+
+By default, query parameters are ignored.
+
+If you need more granularity in the criteria for determining an active link, you can supply a regular expression in the `selected ` option. So if the current path is `/home?foo=bar`, then the following usage
+
+ ```
+ <nav>
+   <%= nav_item 'Home', '/home', selected: /^\/home\?foo=bar/ %>
+   <%= nav_item 'Blog', '/blog', selected: /^\/blog\?foo=bar/ %>
  </nav>
  ```
 
