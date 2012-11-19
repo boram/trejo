@@ -131,4 +131,48 @@ describe Trejo::ViewHelpers do
       end
     end
   end
+
+  describe '#merge_classes' do
+    it 'merges strings with strings' do
+      expect(@trejo.merge_classes('foo', 'bar')).to eq('foo bar')
+      expect(@trejo.merge_classes('foo bar', 'baz')).to eq('foo bar baz')
+    end
+
+    it 'merges arrays with strings' do
+      expect(@trejo.merge_classes(['foo', 'bar'], 'baz')).to eq('foo bar baz')
+    end
+
+    it 'merges arrays with arrays' do
+      expect(
+        @trejo.merge_classes(['walter', 'sobchak'], ['shomer', ['shabbas']])
+      ).to eq('walter sobchak shomer shabbas')
+    end
+
+    it 'omits duplicates' do
+      expect(
+        @trejo.merge_classes(
+          'volta', 'cassandra gemini', 'volta', 'cygnus',
+          ['volta', 'vismund cygnus', 'cassandra', 'gemini']
+        )
+      ).to eq('volta cassandra gemini cygnus vismund')
+    end
+
+    it 'ignores blank values' do
+      expect(
+        @trejo.merge_classes(
+          'volta', 'cassandra gemini', nil,
+          ['', 'cygnus', ' ', 'vismund', nil]
+        )
+      ).to eq('volta cassandra gemini cygnus vismund')
+    end
+
+    it 'strips unnecessary whitespaces' do
+      expect(
+        @trejo.merge_classes(
+          ' volta ', 'cassandra      gemini ',
+          ['   cygnus', '  ', '         vismund ']
+        )
+      ).to eq('volta cassandra gemini cygnus vismund')
+    end
+  end
 end

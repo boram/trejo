@@ -12,5 +12,11 @@ module Trejo
       link_class = options[:class] || 'active' if selected
       link_to name, url, class: link_class
     end
+
+    def merge_classes(*classes)
+      classes.flatten
+        .reject(&:blank?).map(&:split)
+        .flatten.uniq.join ' '
+    end
   end
 end
