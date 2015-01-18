@@ -15,8 +15,8 @@ module Trejo
     attr_accessor :site_title, :company_name
 
     def initialize
-      @site_title = ''
-      @company_name = ''
+      @site_title   = Rails.application.class.parent_name
+      @company_name = Rails.application.class.parent_name
     end
   end
 end
