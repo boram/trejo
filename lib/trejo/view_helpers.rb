@@ -44,8 +44,8 @@ module Trejo
       content_for(:page_class) { value }
     end
 
-    def copyright_notice
-      "\u00A9 #{Date.current.year} #{Trejo.configuration.company_name}, All Rights Reserved"
+    def copyright_notice company_name = nil
+      "\u00A9 #{Date.current.year} #{company_name.presence || Trejo.configuration.company_name}, All Rights Reserved"
     end
   end
 end
