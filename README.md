@@ -104,14 +104,19 @@ merge_classes ['walter', 'sobchak'], ['shomer', ['shabbas']] => 'walter sobchak 
 
 Whitespaces, duplicates and blank/nil values are omitted.
 
+### site_title
+
+`site_title` returns the parameter of the same name as configured in the initializer. If no value is initialized, then it
+returns the top level application module name.
+
 ### title
 
-`title` generates the title tag for the current page.
+`title` is called from the current template and generates the content that goes in the title tag.
 
 In the application layout template, add the following
 
 ```erb
-<title><%= yield(:title).presence %></title>
+<title><%= yield(:title).presence || site_title %></title>
 ```
 
 Then set the page title anywhere in the current page template
@@ -126,7 +131,6 @@ which yields
 <title>About Us | My Website Title</title>
 ```
 
-The website title defaults to the top level application module name. Set the config param `site_title` to customize this value.
 
 ### copyright_notice
 

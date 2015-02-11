@@ -19,9 +19,10 @@ module Trejo
         .flatten.uniq.join ' '
     end
 
-    def title page_title
-      return if page_title.blank?
-      content_for(:title) { "#{page_title} | #{Trejo.configuration.site_title}" }
+    def title page_title = nil
+      content_for(:title) do
+        [page_title, Trejo.configuration.site_title].compact.join(' | ')
+      end
     end
 
     def body_id
@@ -46,6 +47,10 @@ module Trejo
 
     def copyright_notice company_name = nil
       "\u00A9 #{Date.current.year} #{company_name.presence || Trejo.configuration.company_name}, All Rights Reserved"
+    end
+
+    def site_title
+      Trejo.configuration.site_title
     end
   end
 end
